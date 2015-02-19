@@ -8,7 +8,7 @@ Cordova Native BarcodeScan Plugin
 
 This plugin was tested and qualified using Cordova 3.4 adn Cordova 3.5. The demo app contains implementation for  Windows 8.
 
-Only works on windos 8.1 sdk version
+Only works on windows 8.1 sdk version
 
 ## Using the plugin ##
 
