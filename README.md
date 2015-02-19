@@ -37,8 +37,6 @@ winwindow.tlantic.plugins.device.barcodescan.init(
 
 ### stop (successCallback, errorCallback)
 
-Disconnects any connection opened for a given connection.
-
 Example:
 
 ```
