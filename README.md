@@ -24,7 +24,7 @@ The plugin creates a "DeviceBarcodeScan" object exposed on window.tlantic.plugin
 Example:
 
 ```
-winwindow.tlantic.plugins.device.barcodescan.init(
+window.tlantic.plugins.device.barcodescan.init(
   function (scanner) {
     console.log(scanner);  
   },
