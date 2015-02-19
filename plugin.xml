@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.tlantic.plugins.device.barcodescan"
+    version="0.0.1">
+    <name>Native BarcodeScan</name>
+    <description>Tlantic Native BarcodeScan</description>
+    <license>GPL</license>
+    <keywords>cordova, barcodescan</keywords>
+
+    <js-module src="www/socket.js" name="Socket">
+        <clobbers target="window.tlantic.plugins.device.barcodescan" />
+    </js-module>
+
+   <!-- windows8 -->
+    <platform name="windows8">
+        <js-module src="src/windows8/BarcodeScan.js" name="BarcodeScan">
+            <merges target="" />
+        </js-module>
+        <js-module src="src/windows8/BarcodeScanProxy.js" name="BarcodeScanSocketProxy">
+            <merges target="" />
+        </js-module>
+        <config-file target="package.appxmanifest" parent="/Package/Capabilities">
+          <DeviceCapability Name="pointOfService" />
+        </config-file>
+    </platform>
+
+</plugin>
