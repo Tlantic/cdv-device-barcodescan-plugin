@@ -17,7 +17,7 @@
         <js-module src="src/windows8/BarcodeScan.js" name="BarcodeScan">
             <merges target="" />
         </js-module>
-        <js-module src="src/windows8/BarcodeScanProxy.js" name="BarcodeScanSocketProxy">
+        <js-module src="src/windows8/BarcodeScanProxy.js" name="BarcodeScanProxy">
             <merges target="" />
         </js-module>
 
