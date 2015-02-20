@@ -21,8 +21,6 @@
             <merges target="" />
         </js-module>
 
-        <framework src="src/windows8/Microsoft.PointOfService.dll" custom="true" />
-
         <config-file target="package.appxmanifest" parent="/Package/Capabilities">
           <DeviceCapability Name="pointOfService" />
         </config-file>
