@@ -8,7 +8,7 @@
     <license>GPL</license>
     <keywords>cordova, barcodescan</keywords>
 
-    <js-module src="www/socket.js" name="Socket">
+    <js-module src="www/DeviceBarcodeScan.js" name="DeviceBarcodeScan">
         <clobbers target="window.tlantic.plugins.device.barcodescan" />
     </js-module>
 
