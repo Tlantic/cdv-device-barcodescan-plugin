@@ -1,11 +1,11 @@
 /* global module, Windows, console, require */
-'use strict';
+"use strict";
 
 // Connection Class Definition
 module.exports = function BarcodeScan() {
 
     var self = this,
-        _scanner = null;
+        _scanner = null,
         _claimedScanner = null;
 
     // init - constructor
@@ -56,7 +56,7 @@ module.exports = function BarcodeScan() {
         var tempScanType = args.report.scanDataType;
 
         self.onReceive(tempScanLabel, tempScanData, tempScanType);
-    }
+    };
 
     self.endReceivingData = function endReceivingData(callback){
         if (_claimedScanner !== null) {
@@ -68,7 +68,7 @@ module.exports = function BarcodeScan() {
         _scanner = null;
 
         callback();
-    }
+    };
 };
 
 // exporting module

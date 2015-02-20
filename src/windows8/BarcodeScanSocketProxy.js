@@ -11,11 +11,11 @@
       barcodeScan.onReceive = exports.rcMessage;
       barcodeScan.init(success, fail);
 
-    }
+    };
 
     exports.stop = function stop(success, fail, args){
       barcodeScan.stop(success);
-    }
+    };
 
     // callback to receive data written on socket inputStream
     exports.rcMessage = function (scanLabel, scanData, scanType) {
