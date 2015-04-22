@@ -1,4 +1,4 @@
-/* global module, Windows, console, require */
+    cordova.define("com.tlantic.plugins.device.barcodescan.BarcodeScan", function(require, exports, module) { /* global module, Windows, console, require */
 "use strict";
 
 // Connection Class Definition
@@ -12,38 +12,42 @@ module.exports = function BarcodeScan() {
     self.init = function Initialize(success, fail) {
       var _success = success,
           _fail = fail;
+    
+    
+          Windows.Devices.PointOfService.BarcodeScanner.getDefaultAsync().then(function (scanner) {
+              if (scanner !== null) {
+                  _scanner = scanner;
+                  scanner.claimScannerAsync().done(function (claimedScanner) {
+                      if (claimedScanner !== null) {
+                          _claimedScanner = claimedScanner;
+                          claimedScanner.isDecodeDataEnabled = true;
 
-      Windows.Devices.PointOfService.BarcodeScanner.getDefaultAsync().then(function (scanner) {
-            if (scanner !== null) {
-                _scanner = scanner;
-                scanner.claimScannerAsync().done(function (claimedScanner) {
-                    if (claimedScanner !== null) {
-                        _claimedScanner = claimedScanner;
-                        claimedScanner.isDecodeDataEnabled = true;
+                          claimedScanner.addEventListener("datareceived", self.onDataReceived);
+                          claimedScanner.addEventListener("releasedevicerequested", self.onReleasedeviceRequested);
 
-                        claimedScanner.addEventListener("datareceived", self.onDataReceived);
-                        claimedScanner.addEventListener("releasedevicerequested", self.onReleasedeviceRequested);
+                          claimedScanner.enableAsync().done(function () {
+                              _success(_scanner);
+                          }, function error(e) {
+                              _fail("Error enabling scanner..." + e.message, "error");
+                          });
 
-                        claimedScanner.enableAsync().done(function () {
-                            _success(_scanner);
-                        }, function error(e) {
-                            _fail("Error enabling scanner..." + e.message,  "error");
-                        });
+                      } else {
+                          _fail("Could not claim the scanner.", "error");
+                      }
+                  }, function error(e) {
+                      _fail("Could not claim the scanner." + e.message, "error");
+                  });
 
-                    }else {
-                        _fail("Could not claim the scanner.",  "error");
-                    }
-                }, function error(e) {
-                    _fail("Could not claim the scanner." + e.message,  "error");
-                });
+              } else {
+                  _fail("Barcode Scanner not found. Please connect a Barcode Scanner..", "error");
+              }
 
-            }else {
-                _fail("Barcode Scanner not found. Please connect a Barcode Scanner..",  "error");
-            }
+          }, function error(e) {
 
-        }, function error(e) {
-            _fail("Scanner GetDefault Async Unsuccessful" + e.message,  "error");
-        });
+              _fail("Scanner GetDefault Async Unsuccessful" + e.message, "error");
+          });
+
+     
     };
 
     self.onReleasedeviceRequested = function onReleasedeviceRequested(args) {
@@ -58,18 +62,31 @@ module.exports = function BarcodeScan() {
         self.onReceive(tempScanLabel, tempScanData, tempScanType);
     };
 
-    self.endReceivingData = function endReceivingData(callback){
+    self.endReceivingData = function endReceivingData(callback) {
+        var _callback = callback;
         if (_claimedScanner !== null) {
-          _claimedScanner.removeEventListener("datareceived", self.onDataReceived);
-          _claimedScanner.removeEventListener("releasedevicerequested", self.onReleasedeviceRequested);
-          _claimedScanner.close();
-          _claimedScanner = null;
+            _claimedScanner.disableAsync().then(function (success) {
+                _claimedScanner.removeEventListener("datareceived", self.onDataReceived);
+                _claimedScanner.removeEventListener("releasedevicerequested", self.onReleasedeviceRequested);
+                _claimedScanner.close();
+                _claimedScanner = null;
+                _scanner = null;
+                _callback();
+            }, function error(err) {
+                _claimedScanner = null;
+                _scanner = null;
+                _callback();
+            });
+          
+        } else {
+            _callback();
         }
-        _scanner = null;
-
-        callback();
+         
+        
     };
 };
 
 // exporting module
 require('cordova/windows8/commandProxy').add('BarcodeScan', module);
+
+});
