@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="com.tlantic.plugins.device.barcodescan"
-    version="0.0.1">
+    version="0.0.2">
     <name>Native BarcodeScan</name>
     <description>Tlantic Native BarcodeScan</description>
     <license>GPL</license>
