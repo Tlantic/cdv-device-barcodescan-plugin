@@ -2,7 +2,7 @@
 var exec = require('cordova/exec');
 
 //
-function DeviceBarcodeScan(){
+function DeviceBarcodeScan() {
     'use strict';
 
     this.receiveHookName = 'DEVICE_BARCODESCAN_RECEIVE_DATA_HOOK';      // *** Event name to act as "hook" for data receiving
@@ -37,6 +37,5 @@ DeviceBarcodeScan.prototype.stop = function (successCallback, errorCallback) {
     'use strict';
     exec(successCallback, errorCallback, this.pluginRef, 'init', []);
 };
-
 
 module.exports = new DeviceBarcodeScan();
